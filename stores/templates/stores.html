@@ -1,0 +1,10 @@
+{% extends 'index.htm' %}
+{% block container %}
+<div class=top-pad>
+<ul>
+  {% for store in stores %}
+      {{ store|safe }}
+  {% endfor %}
+</ul>
+</div>
+{% endblock %}
