@@ -10,27 +10,24 @@
   <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
   <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
   <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+  <style>
+    .gifimage {
+      position:absolute;
+      top:0;
+      right:0;
+    }
+  </style>
 </head>
 
 <body>
-
   <nav class="navbar navbar-inverse">
     <div class="container-fluid">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="{{ url_for('home') }}">{{ ('Tails Stores') }}</a>
+    iv class="navbar-header">
+      <div class="tails-title-div"> <a href="{{ url_for('home') }}"><h1>{{ ('Tails Stores') }}</h1></a> </div>
+            <img src="../static/images/tenor.gif" class="gifimage" height="50" width="50"/>
       </div>
-    </div>
-    <div>
-        <ul class="nav navbar-nav">
-          <li>
-            <a class="navbar-brand" href="{{ url_for('main.get_stores') }}"></a>
-          </li>
-          <li>
-            <a class="navbar-brand" href="{{ url_for('main.get_tores_in_radius') }}"></a>
-          </li>
-        </ul>
-      </div>
-    </div>
+  </div>
   </nav>
   <div class="container">
     {% with messages = get_flashed_messages() %} {% if messages %}
