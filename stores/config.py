@@ -6,20 +6,17 @@ class BaseConfig(object):
     DEBUG = False
     TESTING = False
     SQLALCHEMY_DATABASE_URI = 'sqlite://'
-    SECRET_KEY = '1d94e52c-1c89-4515-b87a-f48cf3cb7f0b'
     LOGGING_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
     LOGGING_LOCATION = 'stores.log'
     LOGGING_LEVEL = logging.DEBUG
-    SECURITY_PASSWORD_SALT = '8312hjf123'
     CACHE_TYPE = 'simple'
 
 
 class DevelopmentConfig(BaseConfig):
     DEBUG = True
-    TESTING = False
+    TESTING = True
     ENV = 'dev'
     SQLALCHEMY_DATABASE_URI = 'sqlite:///tails_store.db'
-    SECRET_KEY = 'a9eec0e0-23b7-4788-9a92-318347b9a39f'
 
 
 config = {
