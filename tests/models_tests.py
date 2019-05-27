@@ -2,11 +2,10 @@ import unittest
 import pandas as pd
 from pandas.util.testing import assert_frame_equal
 from stores.data import models
-from stores import utils
 
 
 
-class ModelTests(unittest.TestCase):
+class ModelsTests(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
@@ -47,7 +46,7 @@ class ModelTests(unittest.TestCase):
              'longitude':
                  [-0.069212, -0.341337, -0.277805]}
         )
-        self.stores_within_radius = utils.format_index(self.stores_within_radius)
+        self.stores_within_radius = models.format_index(self.stores_within_radius)
         self.stores_within_radius = self.stores_within_radius[['name', 'postcode',\
                                                                'latitude', 'longitude']]
 
