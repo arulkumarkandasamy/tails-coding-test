@@ -17,8 +17,12 @@ def get_stores():
         stores = pd.DataFrame(stores_json)
         utils.format_index(stores)
     else:
-        stores = models.get_stores_from_json()
-        cache.set('stores_data', stores.to_json())
+        stores = models.get_stores_from_db()
+        if stores is not None:
+            utils.format_index(stores)
+        else:
+            stores = models.get_stores_from_json()
+            cache.set('stores_data', stores.to_json())
     current_app.logger.info('Displaying all stores.')
     return render_template('stores.html', stores=[stores.to_html(classes='store')])
 
@@ -30,9 +34,14 @@ def get_tores_in_radius():
     if store_data is not None:
         stores_json = pd.io.json.read_json(store_data)
         stores = pd.DataFrame(stores_json)
+        utils.format_index(stores)
     else:
-        stores = models.get_stores_from_json()
-        cache.set('stores_data', stores.to_json())
+        stores = models.get_stores_from_db()
+        if stores is not None:
+            utils.format_index(stores)
+        else:
+            stores = models.get_stores_from_json()
+            cache.set('stores_data', stores.to_json())
     stores = stores[['name', 'postcode', 'latitude', 'longitude']]
     stores_in_radius = models.get_stores_in_radius(radius, store_name, stores)
     current_app.logger.info('Displaying stores within %s km radius from %s ' %(radius, store_name))

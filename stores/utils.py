@@ -5,12 +5,22 @@ from geopy.distance import vincenty
 
 def get_lattitude(postcode):
     postcode = re.sub(r"\s+", "", postcode)
-    data = get_data_for_postcode(postcode)
+    try:
+        data = get_data_for_postcode(postcode)
+        if data['status'] == 404:
+            return 0
+    except IOError:
+        return 0
     return data.get("result").get("latitude")
 
 def get_longitude(postcode):
     postcode = re.sub(r"\s+", "", postcode)
-    data = get_data_for_postcode(postcode)
+    try:
+        data = get_data_for_postcode(postcode)
+        if data['status'] == 404:
+            return 0
+    except IOError:
+        return 0
     return data.get("result").get("longitude")
 
 def get_data_for_postcode(postcode):

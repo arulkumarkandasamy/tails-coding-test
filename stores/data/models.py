@@ -1,6 +1,11 @@
 import json
 import pandas as pd
+from sqlalchemy import exc
+from flask_sqlalchemy import SQLAlchemy
 from stores import utils
+
+
+db = SQLAlchemy()
 
 
 def get_stores_from_json():
@@ -11,6 +16,7 @@ def get_stores_from_json():
         df['longitude'] = df.apply(lambda row: utils.get_longitude(row.postcode), axis=1)
         df = df.sort_values(by=['name'])
         utils.format_index(df)
+        df.to_sql(name='stores', con=db.engine, index=False)
         return df
 
 
@@ -18,6 +24,8 @@ def get_stores_in_radius(radius, store_name, stores):
     sel_row = stores[stores['name'] == store_name].values
     sel_lat = sel_row[0][2]
     sel_lon = sel_row[0][3]
+    if sel_lat == 0:
+        raise Exception('Latitude is zero')
     stores['distance'] = stores.apply(lambda row: 0 if row['name'] == store_name \
         else utils.distance_calc(row, sel_lat, sel_lon), axis=1)
     stores_within_radius = stores[(stores['distance'] <= int(radius)) \
@@ -26,3 +34,10 @@ def get_stores_in_radius(radius, store_name, stores):
         stores_within_radius.sort_values(by=['latitude'], ascending=False)
     utils.format_index(stores_within_radius)
     return stores_within_radius
+
+def get_stores_from_db():
+    try:
+        stores = pd.read_sql_query("select * from stores", db.engine)
+    except exc.SQLAlchemyError:
+        return None
+    return stores

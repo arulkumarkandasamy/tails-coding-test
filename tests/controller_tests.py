@@ -2,7 +2,7 @@ import unittest
 from stores import app
 
 
-class StoresTests(unittest.TestCase):
+class ControllerTests(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
