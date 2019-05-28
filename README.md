@@ -14,17 +14,20 @@
 
 ### To run unit tests
 
-```make test
+```
+make test
 ```
 
 ### Complete unit testing. To run both Lint and unit test
 
-```make check
+```
+make check
 ```
 
 ### To run the application
 
-```make run
+```
+make run
 ```
 
 ### Help
